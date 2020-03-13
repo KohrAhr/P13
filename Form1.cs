@@ -61,6 +61,10 @@ namespace Call2020
             }
         }
 
+        /// <summary>
+        ///     таймер без тормозов в UI
+        /// </summary>
+        /// <param name="value"></param>
         private void WaitNotLessThan(int value)
         {
             const int CONST_TICK = 50;
@@ -86,25 +90,24 @@ namespace Call2020
             return value == "2020" || value == "100500" || value == "666";
         }
 
+        private void _ShowOnly(int id)
+        {
+            notifyIcon1.Icon = Icon.FromHandle(((Bitmap)imageList1.Images[id]).GetHicon());
+        }
+
         private void ShowGreenOnly()
         {
-            notifyIcon3.Visible = false;
-            notifyIcon2.Visible = false;
-            notifyIcon1.Visible = true;
+            _ShowOnly(1);
         }
 
         private void ShowYellowOnly()
         {
-            notifyIcon3.Visible = false;
-            notifyIcon2.Visible = true;
-            notifyIcon1.Visible = false;
+            _ShowOnly(0);
         }
 
         private void ShowRedOnly()
         {
-            notifyIcon3.Visible = true;
-            notifyIcon2.Visible = false;
-            notifyIcon1.Visible = false;
+            _ShowOnly(2);
         }
 
         /// <summary>
@@ -121,21 +124,24 @@ namespace Call2020
                 // Hide main form
                 Hide();
 
-                // Show green Tray icon and hide Yellow
+                // Show green Tray icon
                 ShowGreenOnly();
 
-                // Run ping Cycle 
+                // Сообщение приветствие
+                ShowBalloonMessage("Go!");
+
+                // Начинаем наш цикл ping-ов 
                 while (true)
                 {
                     // Ping to 1 IP
                     ping(CONST_SERVER_1);
-                    // ждём 1 sec
-                    WaitNotLessThan(1000);
+                    // ждём 1.5 sec
+                    WaitNotLessThan(1500);
 
                     // Ping to 2 IP
                     ping(CONST_SERVER_2);
-                    // ждём 1 sec
-                    WaitNotLessThan(1000);
+                    // ждём 1.5 sec
+                    WaitNotLessThan(1500);
 
                     // Ping to 3 IP
                     ping(CONST_SERVER_3);
@@ -152,14 +158,31 @@ namespace Call2020
         }
 
         /// <summary>
+        ///     Показываем Balloon сообщение
+        /// </summary>
+        /// <param name="value"></param>
+        private void ShowBalloonMessage(string value)
+        {
+            notifyIcon1.BalloonTipText = value;
+            notifyIcon1.ShowBalloonTip(CONST_BALLON_DISPLAY_MS);
+            notifyIcon1.BalloonTipText = "";
+        }
+
+        /// <summary>
         ///     Popup menu -- Выход
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            // https://stackoverflow.com/questions/13046019/winforms-application-exit-vs-environment-exit-vs-form-close
+            // последнее сообщение
+            ShowBalloonMessage("Bye");
+
+            // гарантированно прячем, а то иногда может оставаться
+            notifyIcon1.Visible = false;
+
             // Force exit with Exit code 1.
+            // https://stackoverflow.com/questions/13046019/winforms-application-exit-vs-environment-exit-vs-form-close
             Environment.Exit(1);
         }
     }

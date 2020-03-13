@@ -36,8 +36,7 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.notifyIcon2 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.notifyIcon3 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,9 +74,11 @@
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "Running";
+            this.notifyIcon1.Visible = true;
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -90,16 +91,13 @@
             this.toolStripMenuItem1.Text = "Close";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
-            // notifyIcon2
+            // imageList1
             // 
-            this.notifyIcon2.ContextMenuStrip = this.contextMenuStrip1;
-            this.notifyIcon2.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon2.Icon")));
-            this.notifyIcon2.Visible = true;
-            // 
-            // notifyIcon3
-            // 
-            this.notifyIcon3.ContextMenuStrip = this.contextMenuStrip1;
-            this.notifyIcon3.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon3.Icon")));
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "yellow.ico");
+            this.imageList1.Images.SetKeyName(1, "green.ico");
+            this.imageList1.Images.SetKeyName(2, "red.ico");
             // 
             // Form1
             // 
@@ -129,10 +127,9 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.NotifyIcon notifyIcon2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.NotifyIcon notifyIcon3;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
 
